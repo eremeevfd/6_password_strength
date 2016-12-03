@@ -7,11 +7,23 @@ Unpack and run 'password_strength.py'.
 <pre>Enter your password: 123asaSSD--
 Your password strength score is: 9</pre>
 ## Algorithm
-Script reads your password and then checks for:
-1. Whether your password is not in blacklist it gets 1 score.
-2. Length
-3. Digits
-4. Lowercase grants 1 score
-5. Uppercase
-6. Symbols
+Script reads your password and then checks for.
+- Whether your password is not in blacklist it gets 1 score.
+- Length
+ - less than 8 grants 0 score
+ - more than 8 but less than 13 grants 1 score
+ - more than 13 grants 2 score
+- Digits
+ - 0 digits grant 0 score
+ - 1 digit grants 1 score
+ - 2 or more digits grant 2 score
+- Lowercase grants 1 score
+- Uppercase
+ - 0 uppercases grant 0 score
+ - 1 uppercase grants 1 score
+ - 2 or more uppercases grant 2 score
+- Symbols
+ - 0 symbols grant 0 score
+ - 1 symbols grants 1 score
+ - 2 symbols grant 2 score
  
