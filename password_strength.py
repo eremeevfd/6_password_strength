@@ -11,7 +11,7 @@ def password_in_blacklist(password):
     return password in password_blacklist
 
 
-def password_length_score(password):
+def check_password_length_return_score(password):
     if len(password) >= 13:
         return 2
     elif len(password) >= 8:
@@ -20,39 +20,31 @@ def password_length_score(password):
         return 0
 
 
-def password_with_digits_score(password):
+def count_password_digits(password):
     digits_list = re.findall(r'\d', password)
-    if len(digits_list) > 1:
-        return 2
-    elif len(digits_list) == 1:
-        return 1
-    else:
-        return 0
+    return digits_list
 
 
-def password_with_lowercase_score(password):
+def check_password_for_lowercase_return_score(password):
     return re.search(r'[a-z]', password) is not None
 
 
-def password_with_some_uppercases_score(password):
+def count_password_uppercase(password):
     uppercase_list = re.findall(r'[A-Z]', password)
-    if len(uppercase_list) > 1:
-        return 2
-    elif len(uppercase_list) == 1:
-        return 1
-    else:
-        return 0
+    return uppercase_list
 
 
-def password_with_some_symbols_score(password):
+def count_password_symbols(password):
     symbols_list = re.findall(r'[_\W]', password)
-    if len(symbols_list) > 1:
+    return symbols_list
+
+def check_password_for_some_criteria(criteria):
+    if len(criteria) > 1:
         return 2
-    elif len(symbols_list) == 1:
+    elif len(criteria) == 1:
         return 1
     else:
         return 0
-
 
 def get_password_strength(password):
     password_score = 1
@@ -60,11 +52,11 @@ def get_password_strength(password):
         return password_score
     else:
         return (password_score
-                + password_length_score(password)
-                + password_with_digits_score(password)
-                + password_with_lowercase_score(password)
-                + password_with_some_uppercases_score(password)
-                + password_with_some_symbols_score(password)
+                + check_password_length_return_score(password)
+                + check_password_for_some_criteria(count_password_digits(password))
+                + check_password_for_lowercase_return_score(password)
+                + check_password_for_some_criteria(count_password_uppercase(password))
+                + check_password_for_some_criteria(count_password_symbols(password))
                 )
 
 
