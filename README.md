@@ -2,7 +2,10 @@
 Thank you for using my password ranking script.
 This script evaluates your password by score *from* __1__ *to* __10__
 ## Quick Start
-Unpack and run 'password_strength.py'.
+Unpack and run 'password_strength.py'.  
+By default script supports blacklist of common passwords. 
+If u want to enable this, go to [this link](http://web.archive.org/web/20130605082350/http://isdpodcast.com/files/62kcmnpass.tar.gz)
+and unpack it to script's folder.
 ## Typical output
 <pre>Enter your password: 123asaSSD--
 Your password strength score is: 9</pre>
