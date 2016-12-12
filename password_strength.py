@@ -1,14 +1,17 @@
 import re
+import os
 
 
 def password_in_blacklist(password):
-    password_blacklist = ('Password1', 'Welcome1', 'P@ssword', 'Summer1!', 'password', 'Fa$hion1', 'Hello123',
-                          'Welcome123', '123456q@', 'P@ssword1', '123456', '123456a', '123456abc', 'qwerty',
-                          'qwerty123', 'qwerty123456')
+    password_blacklist = []
+    if os.path.exists("62kcmnpass.txt"):
+        with open("62kcmnpass.txt") as opened:
+            for line in opened:
+                password_blacklist.append(line.strip())
     return password in password_blacklist
 
 
-def password_check_length(password):
+def password_length_score(password):
     if len(password) >= 13:
         return 2
     elif len(password) >= 8:
@@ -17,7 +20,7 @@ def password_check_length(password):
         return 0
 
 
-def password_with_digits(password):
+def password_with_digits_score(password):
     digits_list = re.findall(r'\d', password)
     if len(digits_list) > 1:
         return 2
@@ -27,11 +30,11 @@ def password_with_digits(password):
         return 0
 
 
-def password_with_lowercase(password):
+def password_with_lowercase_score(password):
     return re.search(r'[a-z]', password) is not None
 
 
-def password_with_some_uppercases(password):
+def password_with_some_uppercases_score(password):
     uppercase_list = re.findall(r'[A-Z]', password)
     if len(uppercase_list) > 1:
         return 2
@@ -41,7 +44,7 @@ def password_with_some_uppercases(password):
         return 0
 
 
-def password_with_some_symbols(password):
+def password_with_some_symbols_score(password):
     symbols_list = re.findall(r'[_\W]', password)
     if len(symbols_list) > 1:
         return 2
@@ -57,11 +60,11 @@ def get_password_strength(password):
         return password_score
     else:
         return (password_score
-                + password_check_length(password)
-                + password_with_digits(password)
-                + password_with_lowercase(password)
-                + password_with_some_uppercases(password)
-                + password_with_some_symbols(password)
+                + password_length_score(password)
+                + password_with_digits_score(password)
+                + password_with_lowercase_score(password)
+                + password_with_some_uppercases_score(password)
+                + password_with_some_symbols_score(password)
                 )
 
 
